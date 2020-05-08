@@ -1,2 +1,5 @@
+import arcade
+from Grid import Grid
+
 if __name__ == "__main__":
-    print("hi")
+    grid = Grid(10, 10)
