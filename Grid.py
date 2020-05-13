@@ -1,24 +1,28 @@
-import arcade
 import random
 from Path import Path
 from Tile import Tile
 
 
-class Grid():
-    def __init__(self, x_size=0, y_size=0):
+class Grid:
+    """Grid class simply storing the grid with tiles"""
+    def __init__(self, x_size=0, y_size=0, walkable_rate=0.75):
 
         self.x_size = x_size
         self.y_size = y_size
 
-        # just a list determining the relationship between walkable and not walkable tiles
-        randomiser = [False, True, True, True]
-        self.tiles = [[Tile(self, position=(i, j), walkable=random.choice(randomiser)) for j in range(y_size)] for i in range(x_size)]
+        # tiles are initialised and are either walkable or not depending on a random number comparison
+        # with the walkable_rate (0.75 means 75% of tiles are walkable)
+        self.tiles = [[Tile(self, position=(i, j), walkable=(random.random() < walkable_rate))
+                       for j in range(y_size)] for i in range(x_size)]
+
+        # Path no initialised at start
         self.path = None
 
     def create_random_path(self):
+        # function creating a random path
         for column in self.tiles:
             for tile in column:
-                tile.clear_path()
+                tile.clear_tile()
 
         walkable_tiles = []
         for column in self.tiles:

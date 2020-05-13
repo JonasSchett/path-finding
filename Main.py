@@ -1,4 +1,3 @@
-import arcade
 from Grid import Grid
 from Window import Window
 
